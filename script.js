@@ -131,8 +131,7 @@ function makeBook(bookObject) {
 function addBook() {
   const inputTittle = document.getElementById("inputBookTitle").value;
   const inputAuthor = document.getElementById("inputBookAuthor").value;
-  const inputYear = document.getElementById("inputBookYear").value;
-
+  const inputYear = parseInt(document.getElementById("inputBookYear").value);
   const generatedID = generateId();
   const bookObject = generateBooksObject(generatedID, inputTittle, inputAuthor, inputYear, inputComplete.checked);
   books.push(bookObject);
@@ -213,7 +212,7 @@ document.getElementById("searchBook").addEventListener("submit", function (e) {
   rakHasil.removeAttribute("hidden");
 
   function search(i) {
-    return i.title == cari;
+    return i.title.toLowerCase() == cari.toLowerCase();
   }
 
   const res = books.find(search);
