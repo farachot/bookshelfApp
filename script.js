@@ -20,13 +20,13 @@ function generateId() {
   return +new Date();
 }
 
-function generateBooksObject(id, title, author, year, isCompleted) {
+function generateBooksObject(id, title, author, year, isComplete) {
   return {
     id,
     title,
     author,
     year,
-    isCompleted,
+    isComplete,
   };
 }
 
@@ -78,7 +78,7 @@ function loadDataFromStorage() {
 }
 
 function makeBook(bookObject) {
-  const { id, title, author, year, isCompleted } = bookObject;
+  const { id, title, author, year, isComplete } = bookObject;
 
   const textTitle = document.createElement("h3");
   textTitle.innerText = title;
@@ -105,7 +105,7 @@ function makeBook(bookObject) {
     removeBook(id);
   });
 
-  if (isCompleted) {
+  if (isComplete) {
     const undoButton = document.createElement("button");
     undoButton.classList.add("green");
     undoButton.innerText = "Belum Selesai Dibaca";
@@ -145,7 +145,7 @@ function addBookToCompleted(bookId /* HTMLELement */) {
 
   if (bookTarget == null) return;
 
-  bookTarget.isCompleted = true;
+  bookTarget.isComplete = true;
   document.dispatchEvent(new Event(RENDER_EVENT));
   saveData();
 }
@@ -164,7 +164,7 @@ function undoBookFromCompleted(bookId /* HTMLELement */) {
   const bookTarget = findBook(bookId);
   if (bookTarget == null) return;
 
-  bookTarget.isCompleted = false;
+  bookTarget.isComplete = false;
   document.dispatchEvent(new Event(RENDER_EVENT));
   saveData();
 }
@@ -196,7 +196,7 @@ document.addEventListener(RENDER_EVENT, function () {
 
   for (const item of books) {
     const bookElement = makeBook(item);
-    if (item.isCompleted) {
+    if (item.isComplete) {
       rakSudah.append(bookElement);
     } else {
       rakBelum.append(bookElement);
